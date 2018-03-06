@@ -1,0 +1,69 @@
+<ion-view  view-title="Receipt" class="title-view">
+    <ion-floating-menu id="actionMenuItems" style="display:none" menu-icon="ion-plus" menu-icon-color="black" menu-color="white" menu-open-color="white">
+      <ion-floating-item ng-click="addToFolder()" has-footer="false" button-color="white" icon="ion-ios-folder" icon-color="black"></ion-floating-item>
+      <ion-floating-item ng-click="initiateReturn()" has-footer="false" button-color="white" icon="ion-ios-undo" icon-color="black"></ion-floating-item>
+    </ion-floating-menu>
+    <div class="card overlay_search" id="folder_card" style="display:none;">
+       <div class="item" style="border: 5px solid black; z-index:3; margin-top:25%;font-size:80%; text-overflow:ellipsis;">
+         <div class="ion-close close_button" ng-click="toggleFolderCard()"></div>
+         <div class="row">
+           <span>Existing Folder: &nbsp; &nbsp;</span>
+           <select style="margin-bottom:10px;" ng-model="userFolderSelection" ng-options="folder as folder.folder_name for folder in folders"></select>
+         </div>
+         <input type="text" ng-model="newFolderName" style="border:1px solid black" placeholder='&nbsp; New Folder'></input>
+         <div class="button btn-text" style="border:1px solid black; border-radius:0; margin-top:10px;" ng-click="submitNewFolder()">Submit</div>
+       </div>
+    </div>
+    <ion-content id="main_content_receipt" class="overview-color">
+      <div class="common-row" style="margin-top:20px;m">
+        <div class="col-5"></div>
+        <img class="col-30 receipt_picture" src="{{merchant_details.logo}}"></img>
+        <div class="col-60 receipt_top_right">
+          <div>{{merchant_details.phone}}</div>
+          <div>{{merchant_details.website}}</div>
+        </div>
+        <div class="col-5"></div>
+      </div>
+      <div class="common-row">
+        <div class="col-5"></div>
+        <div class="col-22_5 button receipt_button" style="min-width:0px;">Status</div>
+        <div class="col-22_5 button receipt_button" style="min-width:0px;">Policy</div>
+        <div class="col-22_5 button receipt_button" style="min-width:0px;">Logs</div>
+        <div class="col-22_5 button receipt_button receipt_button_left" style="min-width:0px;">Certs</div>
+        <div class="col-5"></div>
+      </div>
+      <div ng-repeat="item in items">
+        <div class="common-row" style="height:25px;">
+          <div class="col-5"></div>
+          <div class="col-10 receipt_spacers_left"></div>
+          <div style="font-size:80%" class="col-50 receipt_inner_items">
+            <div ng-class="item.class" ng-click="itemActionClick(item)"></div>
+            <span ng-class="getItemTextClass(item)">{{item.itemname}}</span>
+          </div>
+          <div style="font-size:80%" class="col-20 receipt_inner_items">${{item.itemPrice}}</div>
+          <div class="col-10 receipt_spacers_right"></div>
+          <div class="col-5"></div>
+        </div>
+        <div class="common-row" style="height:20px;padding:0;">
+          <div class="col-5"></div>
+          <div class="col-10 receipt_spacers_left"></div>
+          <div style="font-size:80%;padding:0;" class="col-70 receipt_inner_items">
+            <span style="margin-left:20px;">Return Status: {{getSingleItemStatus(item.id)}}</span>
+          </div>
+          <div class="col-10 receipt_spacers_right"></div>
+          <div class="col-5"></div>
+        </div>
+      </div>
+      <div class="common-row">
+        <div class="col-5"></div>
+        <div class="col-10 receipt_spacers_left"></div>
+        <div class="col-70 receipt_inner_items" style="border-top:2px dotted black">
+          <div>Subtotal: ${{receipt.subtotal}}</div>
+          <div>Tax: ${{receipt.tax}}</div>
+          <div>Total: ${{receipt.total}}</div>
+        </div>
+        <div class="col-10 receipt_spacers_right"></div>
+        <div class="col-5"></div>
+      </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,69 @@
+<ion-view  view-title="Analytics" class="title-view">
+    <ion-content class="overview-color">
+      <!-- <div class="card overlay"> -->
+      <div class="card card_tax_one overlay" id="hidden_card">
+         <div class="item">
+            Categories
+            <div class="ion-close close_button" ng-click="toggleCard()"></div>
+         </div>
+         <div class="item pie_wrapper" style="margin:0">
+           <canvas class="pie_chart" id="analytics_pie_chart"></canvas>
+         </div>
+      </div>
+      <div class="common-row" style="height:18px;"></div>
+      <div class="common-row">
+        <div class="col-5"></div>
+        <div ng-click="goToTaxOne('Health')" class="col-20 common-border health_color"><img src="images/Health.png" class="icon_analytics"></img></div>
+        <!-- <img ng-click="goToTaxOne('Health')" src="images/Education.png" class="col-10 common-border health_color"></img> -->
+        <div ng-click="goToTaxOne('Health')" class="col-55 analyticsTaxonomyRow" ng-model="finalPercentages">
+          <h3 class="taxonomy_header">Health</h3>
+          <h3 class="taxonomy_percentage">{{finalPercentages.Health * 100 | number : 0}} % </h3>
+        </div>
+        <div class="col-20"></div>
+      </div>
+      <div class="common-row" style="height:5px;"></div>
+      <div class="common-row">
+        <div class="col-5"></div>
+        <div ng-click="goToTaxOne('Education')" class="col-20 common-border education_color"><img src="images/Education.png" class="icon_analytics"></img></div>
+        <div ng-click="goToTaxOne('Education')" class="col-55 analyticsTaxonomyRow" ng-model="finalPercentages">
+          <h3 class="taxonomy_header">Education</h3>
+          <h3 class="taxonomy_percentage">{{finalPercentages.Education * 100 | number : 0}} %</h3>
+        </div>
+        <div class="col-2_5"></div>
+        <div class="col-15">
+          <div class="ion-pie-graph pie_icon" ng-click="toggleCard()"></div>
+        </div>
+        <div class="col-2_5"></div>
+      </div>
+      <div class="common-row" style="height:5px;"></div>
+      <div class="common-row">
+        <div class="col-5"></div>
+        <div ng-click="goToTaxOne('Services')" class="col-20 common-border services_color"><img src="images/Services.png" class="icon_analytics"></img></div>
+        <div ng-click="goToTaxOne('Services')" class="col-55 analyticsTaxonomyRow" ng-model="finalPercentages">
+          <h3 class="taxonomy_header">Services</h3>
+          <h3 class="taxonomy_percentage">{{finalPercentages.Services * 100 | number : 0}} %</h3>
+        </div>
+        <div class="col-20"></div>
+      </div>
+      <div class="common-row" style="height:5px;"></div>
+      <div class="common-row">
+        <div class="col-5"></div>
+        <div ng-click="goToTaxOne('Transportation')" class="col-20 common-border transportation_color"><img src="images/Transport.png" class="icon_analytics"></img></div>
+        <div ng-click="goToTaxOne('Transportation')" class="col-55 analyticsTaxonomyRow" ng-model="finalPercentages">
+          <h3 class="taxonomy_header">Transportation</h3>
+          <h3 class="taxonomy_percentage">{{finalPercentages.Transportation * 100 | number : 0}} %</h3>
+        </div>
+        <div class="col-20"></div>
+      </div>
+      <div class="common-row" style="height:5px;"></div>
+      <div class="common-row">
+        <div class="col-5"></div>
+        <div ng-click="goToTaxOne('Lifestyle')" class="col-20 common-border lifestyle_color"><img src="images/Lifestyle.png" class="icon_analytics"></img></div>
+        <div ng-click="goToTaxOne('Lifestyle')" class="col-55 analyticsTaxonomyRow" ng-model="finalPercentages">
+          <h3 class="taxonomy_header">Lifestyle</h3>
+          <h3 class="taxonomy_percentage">{{finalPercentages.Lifestyle * 100 | number : 0}} %</h3>
+        </div>
+        <div class="col-20"></div>
+      </div>
+    </ion-content>
+</ion-view>

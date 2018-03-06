@@ -1,0 +1,16 @@
+<ion-view ng-init="setNavColor()" view-title="{{title}}" id="main-nav-bar" class="title-view">
+    <ion-content class="overview-color">
+      <div class=common-row style="margin-top:18px;" ng-repeat="receipt in currReceipts">
+        <div class="col-5"></div>
+          <ion-item class="col-90 item-primary item-icon-left tax-view-receipt" ng-click="goReceipt(receipt)">
+            <div>
+              <div ng-class="determineIcon(receipt.taxonomy_level1)"></div>
+            </div>
+            <div style="font-size:70%;">Merchant: {{receipt.name}}</div>
+            <div style="font-size:70%;">Total: {{receipt.total}}</div>
+            <div style="font-size:70%;">Order Date: {{receipt.order_date}}</div>
+          </ion-item>
+        <div class="col-5"></div>
+      </div>
+    </ion-content>
+</ion-view>

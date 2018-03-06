@@ -1,0 +1,99 @@
+<ion-view  view-title="Search" class="title-view">
+  <ion-floating-menu menu-icon="ion-more" menu-color="white" menu-open-color="white" menu-icon-color="black">
+    <ion-floating-item ng-click="groupSelected()" has-footer="false" button-color="white" icon="ion-edit" icon-color="black"></ion-floating-item>
+    <ion-floating-item ng-click="exportSelected()" has-footer="false" button-color="white" icon="ion-paper-airplane" icon-color="black"></ion-floating-item>
+    <ion-floating-item ng-click="showDateRange()" has-footer="false" button-color="white" icon="ion-calendar" icon-color="black"></ion-floating-item>
+  </ion-floating-menu>
+  <!-- Card corresponding to Data Export and Category Change -->
+  <div class="card card_tax_one overlay_search" id="actionCard" style="display:none;">
+     <div id="cardInnerItem" class="item" style="border-radius:15px; border: 5px solid #808080; font-size:80%; text-overflow:ellipsis; height: 235px;">
+        <div class="ion-close close_button" ng-click="toggleCard()"></div>
+        {{actionHeader}}
+        <br>
+        {{actionOptionsTitle}}
+        <label class="item item-input item-select" style="height:30px;padding-left:0px;">
+          <select ng-change="testIfNew()" ng-model="userChoice" style="font-size:70%;padding-left:0px;padding-right:30px;float:left;">
+            <option ng-repeat="option in options[optionsKey]">{{option}}</option>
+          </select>
+        </label>
+        <div style="height:10px;"></div>
+        <div id="newCatInput" style="display:none;">
+          <input type="text" placeholder="New Category" ng-model="newCategoryInput" style="border:2px solid #808080; border-radius:5px;padding-left:10px;">
+        </div>
+        <ul style="overflow-y:scroll;height:80px;">
+          <li ng-repeat="receipt in receipts | filter : {state : 1}">{{receipt.total}}</li>
+        </ul>
+        <div class="button btn-text" style="background-color:#808080;color:white;" ng-click="submitAction()">{{submitActionText}}</div>
+     </div>
+  </div>
+  <ion-content class="overview-color">
+    <div class="common-row" style="height:12px"></div>
+    <div class="common-row" style="margin-top:15px;margin-bottom:12px;" id="searchRow">
+      <div class="col-5"></div>
+      <label class="item item-input col-60 input-bar-search">
+        <input type="text" ng-model="filterValue">
+      </label>
+      <div class="col-2"></div>
+      <div class="button col-28 searchButton btn-text" ng-click="filterReceipts(filterValue, 0)">Search</div>
+      <div class="col-5"></div>
+    </div>
+    <div class="common-row">
+      <div class="col-5"></div>
+      <button class="button col-30 categoryFilterButton lifestyle_color" ng-click="filterReceipts('Lifestyle', 1)"><div><b>Lifestyle</b></div></button>
+      <button class="button col-30 categoryFilterButton services_color" ng-click="filterReceipts('Services', 1)"><div><b>Services</b></div></button>
+      <button class="button col-30 categoryFilterButton transportation_color" ng-click="filterReceipts('Transportation', 1)"><div><b>Transport</b></div></button>
+      <div class="col-5"></div>
+    </div>
+    <div class="common-row">
+      <div class="col-5"></div>
+      <button class="button col-30 categoryFilterButton health_color" ng-click="filterReceipts('Health', 1)"><div><b>Health</b></div></button>
+      <button class="button col-30 categoryFilterButton education_color" ng-click="filterReceipts('Education', 1)"><div><b>Education</b></div></button>
+      <div class="col-35"></div>
+    </div>
+    <div class="common-row" style="display:none;margin-top:6px;" id="rangeSliderRow">
+      <div class="col-5"></div>
+      <!-- <rzslider class="col-90 custom-style" rz-slider-model="slider.minValue"
+        rz-slider-high="slider.maxValue"
+        rz-slider-options="slider.options">
+      </rzslider> -->
+      <rzslider class="col-90 custom-style"
+      rz-slider-model="slider.min"
+    	rz-slider-high="slider.max"
+      rz-slider-options="slider.options">
+      </rzslider>
+      <div class="col-5"></div>
+    </div>
+    <div class="common-row" style="margin-top:12px;">
+      <div class="col-5"></div>
+      <div style="height:48px;" class="button col-28 searchButton btn-text" ng-click="filterReceipts('', 0); filterValue = null">Clear</div>
+      <div class="col-12"></div>
+      <div class="col-40" style="font-size:80%;color:white"><div style="margin-top:20px;margin-right:10px;float:right;">Select All</div></div>
+      <div class="check-awesome col-10 form-group" ng-click="changeStateAll()">
+          <label style="padding:0px;">
+              <span ng-class="allSelectClass" style="margin-top:20px;border-radius:20px;border-color:black;height:22px;width:22px;"></span>
+          </label>
+          <input type="checkbox" class="check">
+      </div>
+      <div class="col-5"></div>
+    </div>
+    <div class="common-row" style="height:18px"></div>
+    <ion-list>
+      <div class="row" style="margin-bottom:18px;" ng-repeat="receipt in receipts | filter : dayFilter">
+        <div class="col-5"></div>
+        <ion-item class="col-80 item-primary item-icon-left tax-view-receipt" style="font-size:80%" ng-click="goReceipt(receipt)">
+          <div><div ng-class="determineIconOrColor(receipt.taxonomy_level1)"></div></div>
+          <div>Merchant: {{receipt.name}}</div>
+          <div>Total: {{receipt.total}}</div>
+          <div>Day: {{receipt.order_date | date : 'dd'}}</div>
+        </ion-item>
+        <div class="check-awesome col-10 form-group" ng-click="toggleState(receipt.taxonomy_level1, receipt.order_date)">
+            <label style="padding:0px;">
+                <span ng-class="receipt.class" style="margin-top:10px;margin-left:10px;border-radius:20px;border-color:black;height:22px;width:22px;"></span>
+            </label>
+            <input type="checkbox" class="check">
+        </div>
+        <div class="col-5"></div>
+      </div>
+    </ion-list>
+  </ion-content>
+</ion-view>
